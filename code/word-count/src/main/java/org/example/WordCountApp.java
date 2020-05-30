@@ -31,8 +31,7 @@ public class WordCountApp {
                 .toStream();
         wordCounts.to("word-count-output", Produced.with(Serdes.String(), Serdes.Long()));
 
-        Topology topology = builder.build();
-        KafkaStreams streams = new KafkaStreams(topology, config);
+        KafkaStreams streams = new KafkaStreams(builder.build(), config);
         streams.start();
 
         // Shutdown gracefully
