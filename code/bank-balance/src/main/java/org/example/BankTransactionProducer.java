@@ -35,8 +35,9 @@ public class BankTransactionProducer {
 
     private static void send(KafkaProducer<String, String> producer, BankTransaction transaction) {
         try {
+            String key = transaction.getName();
             String value = objectMapper.writeValueAsString(transaction);
-            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, null, value);
+            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, key, value);
             producer.send(record, (recordMetadata, e) -> {
                 if (e != null) {
                     logger.error("Error sending message", e);

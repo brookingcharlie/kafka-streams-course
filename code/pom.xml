@@ -11,7 +11,6 @@
     <modules>
         <module>favourite-colour</module>
         <module>word-count</module>
-        <module>bank-balance-producer</module>
-        <module>bank-balance-streams</module>
+        <module>bank-balance</module>
     </modules>
 </project>

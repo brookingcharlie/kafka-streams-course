@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bank-transaction-producer</artifactId>
+    <artifactId>bank-balance</artifactId>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
