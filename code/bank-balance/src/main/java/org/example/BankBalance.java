@@ -2,20 +2,20 @@ package org.example;
 
 import java.time.LocalDateTime;
 
-public class BankTransaction {
+public class BankBalance {
     private String name;
-    private Integer amount;
+    private Integer balance;
     private LocalDateTime time;
 
-    public BankTransaction() {
+    public BankBalance() {
         this.name = null;
-        this.amount = null;
+        this.balance = null;
         this.time = null;
     }
 
-    public BankTransaction(String name, Integer amount, LocalDateTime time) {
+    public BankBalance(String name, Integer balance, LocalDateTime time) {
         this.name = name;
-        this.amount = amount;
+        this.balance = balance;
         this.time = time;
     }
 
@@ -27,12 +27,12 @@ public class BankTransaction {
         this.name = name;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getBalance() {
+        return balance;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
     public LocalDateTime getTime() {
