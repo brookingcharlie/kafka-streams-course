@@ -12,5 +12,6 @@
         <module>favourite-colour</module>
         <module>word-count</module>
         <module>bank-balance</module>
+        <module>user-event-enricher</module>
     </modules>
 </project>
