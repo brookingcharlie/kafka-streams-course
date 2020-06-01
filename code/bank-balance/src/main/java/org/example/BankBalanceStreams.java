@@ -8,6 +8,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Materialized;
@@ -30,6 +31,14 @@ public class BankBalanceStreams {
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         config.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE);
 
+        Topology topology = buildTopology();
+
+        KafkaStreams streams = new KafkaStreams(topology, config);
+        Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
+        streams.start();
+    }
+
+    public static Topology buildTopology() {
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, BankTransaction> input = builder.stream(
                 INPUT_TOPIC,
@@ -48,10 +57,7 @@ public class BankBalanceStreams {
                 )
                 .toStream();
         output.to(OUTPUT_TOPIC, Produced.with(Serdes.String(), buildJsonSerde(BankBalance.class)));
-
-        KafkaStreams streams = new KafkaStreams(builder.build(), config);
-        Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
-        streams.start();
+        return builder.build();
     }
 
     private static <T> Serde<T> buildJsonSerde(final Class<T> valueType) {
